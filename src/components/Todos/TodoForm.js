@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './TodoForm.module.css';
 
 function TodoForm(props) {
   const { addTodo } = props;
@@ -11,14 +12,16 @@ function TodoForm(props) {
   };
 
   return (
-    <form onSubmit={onSubmitHandler}>
-      <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Enter new todo"
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <div className={styles.todoFormContainer}>
+      <form onSubmit={onSubmitHandler}>
+        <input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Enter new todo"
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 }
 
