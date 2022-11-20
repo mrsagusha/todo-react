@@ -5,11 +5,14 @@ import styles from './Todo.module.css';
 function Todo(props) {
   const { todo, deleteTodo } = props;
   return (
-    <div onDoubleClick={() => deleteTodo(todo.id)} className={styles.todo}>
+    <div className={styles.todo}>
       <RiTodoFill className={styles.todoIcon} />
       <div className={styles.todoText}>{todo.text}</div>
-      <RiDeleteBin2Line className={styles.checkIcon} />
-      <FaCheck className={styles.deleteIcon} />
+      <RiDeleteBin2Line
+        onClick={() => deleteTodo(todo.id)}
+        className={styles.deleteIcon}
+      />
+      <FaCheck className={styles.checkIcon} />
     </div>
   );
 }
