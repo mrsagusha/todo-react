@@ -8,8 +8,8 @@ function TodoList(props) {
       {!todos.length ? (
         <h2>Todo list is empty</h2>
       ) : (
-        todos.map((el, index) => (
-          <Todo todo={el} key={index} index={index} deleteTodo={deleteTodo} />
+        todos.map((todo) => (
+          <Todo todo={todo} key={todo.id} deleteTodo={deleteTodo} />
         ))
       )}
     </div>
