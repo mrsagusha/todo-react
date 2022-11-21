@@ -33,4 +33,28 @@
     border: none;
     border-radius: 5px;
   }
+
+.todoFormAcceptButton,
+.todoFormCancelButton {
+    transition: 0.2s;
+    font-size: 1.8rem;
+    padding: 10px;
+    margin-left: 20px;
+    background-color: beige;
+    border-radius: 5px;
+}
+
+.todoFormAcceptButton {
+  color: green;
+}
+
+.todoFormCancelButton {
+  color: red;
+}
+
+.todoFormAcceptButton:hover ,
+.todoFormCancelButton:hover {
+    cursor: pointer;
+    background-color: rgb(240, 240, 155);
+}
   

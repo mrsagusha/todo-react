@@ -7,11 +7,13 @@ import TodosActions from './components/Todos/TodosActions';
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [updateData, setUpdateData] = useState('');
 
   const addTodoHandler = (text) => {
     const newTodo = {
       text,
       isCompleted: false,
+      editStatus: false,
       id: uuidv4(),
     };
     setTodos([...todos, newTodo]);
@@ -39,12 +41,73 @@ function App() {
     setTodos(todos.filter((todo) => !todo.isCompleted));
   };
 
+  const changeEditStatusHandler = (id) => {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id !== id && todo.editStatus === true) {
+          todo.editStatus = false;
+        }
+        return todo.id === id
+          ? { ...todo, editStatus: !todo.editStatus }
+          : { ...todo };
+      })
+    );
+  };
+
+  const cancelUpdateHandler = () => {
+    setUpdateData('');
+  };
+
+  const setUpdateHandler = (id) => {
+    const todo = todos.find((todo) => todo.id === id);
+
+    setUpdateData({
+      text: todo.text,
+      isCompleted: todo.isCompleted,
+      editStatus: todo.editStatus,
+      id: todo.id,
+    });
+  };
+
+  const changeUpdateHandler = (e) => {
+    const newTodo = {
+      text: e.target.value,
+      isCompleted: updateData.isCompleted,
+      editStatus: updateData.editStatus,
+      id: updateData.id,
+    };
+    setUpdateData(newTodo);
+  };
+
+  const approveUpdateHandler = (id) => {
+    setTodos(
+      todos.map((todo) => {
+        return todo.id === id
+          ? {
+              ...todo,
+              text: updateData.text,
+              isCompleted: todo.isCompleted,
+              editStatus: !todo.editStatus,
+              id: todo.id,
+            }
+          : { ...todo };
+      })
+    );
+  };
+
   const completedTodosCount = todos.filter((todo) => todo.isCompleted).length;
 
   return (
     <div className="App">
       <h1>Todo App</h1>
-      <TodoForm addTodo={addTodoHandler} />
+      <TodoForm
+        addTodo={addTodoHandler}
+        todos={todos}
+        updateData={updateData}
+        changeUpdate={changeUpdateHandler}
+        cancelUpdate={cancelUpdateHandler}
+        approveUpdate={approveUpdateHandler}
+      />
       {todos.length > 0 && (
         <TodosActions
           completedTodosExist={!!completedTodosCount}
@@ -56,6 +119,8 @@ function App() {
         todos={todos}
         deleteTodo={deleteTodoHandler}
         toggleTodo={toggleTodoHandler}
+        changeEditStatus={changeEditStatusHandler}
+        setUpdate={setUpdateHandler}
       />
       {completedTodosCount > 0 && (
         <h2>{`You have completed ${completedTodosCount} ${

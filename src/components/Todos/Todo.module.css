@@ -32,9 +32,14 @@
   .todo.completedTodo .deleteIcon {
     color: gray;
   }
+
+  .todo.completedTodo .todoText {
+    text-decoration: line-through;
+  }
   
   .checkIcon,
-  .deleteIcon {
+  .deleteIcon, 
+  .editIcon {
     cursor: pointer;
     color: lightgrey;
     padding: 0 7px;
@@ -43,9 +48,14 @@
   }
   
   .checkIcon:hover,
-  .deleteIcon:hover {
+  .deleteIcon:hover,
+  .editIcon:hover {
     cursor: pointer;
     transform: scale(1.2);
+  }
+
+  .editIcon:hover {
+    color: rgb(0, 4, 255);
   }
   
   .checkIcon:hover {
