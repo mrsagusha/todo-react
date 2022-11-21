@@ -20,24 +20,30 @@ function Todo(props) {
       >
         {todo.text}
       </div>
-      <MdModeEdit
-        className={styles.editIcon}
-        title="Edit"
-        onClick={() => {
-          setUpdate(todo.id);
-          changeEditStatus(todo.id);
-        }}
-      />
+      {!todo.isCompleted && (
+        <MdModeEdit
+          className={styles.editIcon}
+          title="Edit"
+          onClick={() => {
+            setUpdate(todo.id);
+            changeEditStatus(todo.id);
+          }}
+        />
+      )}
       <RiDeleteBin2Line
         onClick={() => deleteTodo(todo.id)}
         className={styles.deleteIcon}
         title="Delete"
       />
-      <FaCheck
-        onClick={() => toggleTodo(todo.id)}
-        className={styles.checkIcon}
-        title="Complete"
-      />
+      {!todo.editStatus && (
+        <FaCheck
+          onClick={() => {
+            toggleTodo(todo.id);
+          }}
+          className={styles.checkIcon}
+          title="Complete"
+        />
+      )}
     </div>
   );
 }

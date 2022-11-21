@@ -56,6 +56,7 @@ function App() {
 
   const cancelUpdateHandler = () => {
     setUpdateData('');
+    changeEditStatusHandler(todos.find((todo) => todo.editStatus === true).id);
   };
 
   const setUpdateHandler = (id) => {

@@ -12,6 +12,7 @@ function TodoForm(props) {
     approveUpdate,
   } = props;
   const [text, setText] = useState('');
+  const todo = todos.find((todo) => todo.editStatus === true);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -23,7 +24,12 @@ function TodoForm(props) {
     <div className={styles.todoFormContainer}>
       {todos.some((todo) => todo.editStatus === true) ? (
         <>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              approveUpdate(todo.id);
+            }}
+          >
             <input
               value={updateData && updateData.text}
               onChange={(e) => changeUpdate(e)}
@@ -33,11 +39,7 @@ function TodoForm(props) {
               className={styles.todoFormAcceptButton}
               title="Update"
               onClick={() => {
-                approveUpdate(
-                  todos.find((todo) => todo.editStatus === true).id
-                );
-                console.log(todos.find((todo) => todo.editStatus === true).id);
-                console.log(updateData);
+                approveUpdate(todo.id);
               }}
             />
             <IoIosClose
